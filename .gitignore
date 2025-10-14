@@ -1,0 +1,6 @@
+"data/raw/telco_churn.csv" 
+"data/processed/" 
+"models/" 
+"metrics/" 
+".dvc/cache/" 
+".dvc/tmp/" 
