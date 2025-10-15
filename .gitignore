@@ -1,11 +1,6 @@
-# Archivos de entorno y sistema
-*.pyc
-__pycache__/
-.env
-
-# Ignorar carpetas de datos gestionadas por DVC
-/data/raw/
-/data/processed/
-
-# Ignorar modelos gestionados por DVC
-/models/
+"data/raw/telco_churn.csv" 
+"data/processed/" 
+"models/" 
+"metrics/" 
+".dvc/cache/" 
+".dvc/tmp/" 

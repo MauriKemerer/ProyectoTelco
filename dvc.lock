@@ -25,8 +25,8 @@ stages:
       size: 883371
     - path: params.yaml
       hash: md5
-      md5: 14b94fb9423271307ecba5468766f0ab
-      size: 88
+      md5: 441b4de7703baa1760ede853314a683c
+      size: 91
     - path: src/train.py
       hash: md5
       md5: f03b10feaa26e2256c226207f2b99d17
@@ -34,9 +34,9 @@ stages:
     outs:
     - path: metrics/metrics.json
       hash: md5
-      md5: e48872a6b8109e900a7430808adfabe9
-      size: 132
+      md5: 5e1d9256ff7bd96f3fa04dfc77f5fb38
+      size: 133
     - path: models/model.pkl
       hash: md5
-      md5: 98c60f22f20afcf48a38ca4950f33834
+      md5: 9ffa003502e2978a6a0835c12cd6f361
       size: 1759
