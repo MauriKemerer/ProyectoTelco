@@ -1,16 +1,14 @@
 name: CI - Pipeline de Churn
 
-# Disparadores: Cuándo debe ejecutarse este workflow
 on:
   push:
-    branches: [ main ]  # Al hacer push a la rama principal
+    branches: [ main ]
   pull_request:
-    branches: [ main ]  # Al abrir un PR contra la rama principal
+    branches: [ main ]
 
 jobs:
-  # Nombre del trabajo (job)
   run-pipeline:
-    runs-on: ubuntu-latest # Usar una máquina virtual de Ubuntu
+    runs-on: ubuntu-latest
     
     steps:
       # 1. Obtener el código del repositorio
@@ -21,22 +19,18 @@ jobs:
       - name: 2. Set up Python
         uses: actions/setup-python@v4
         with:
-          # Asegúrate que esta versión coincida con la de tu entorno conda
-          python-version: 3.9 
+          # Versión actualizada para coincidir con tu entorno local
+          python-version: 3.10 
 
       # 3. Instalar las dependencias
-      # Asume que tienes un requirements.txt
       - name: 3. Instalar dependencias
         run: |
           pip install -r requirements.txt
           
       # 4. Configurar las credenciales de DagsHub
-      # Esta acción usa los Secrets que creaste (DAGSHUB_USER, DAGSHUB_TOKEN)
-      # para configurar DVC y Git automáticamente.
       - name: 4. Configurar DagsHub
         uses: DagsHub/setup-dagshub@v0
         with:
-          # Asegúrate que el 'owner' y 'repo' coincidan con tu repo en DagsHub
           repo_owner: 'MauriKemerer'
           repo_name: 'ProyectoTelco'
           
@@ -45,12 +39,11 @@ jobs:
         run: dvc pull
 
       # 6. Ejecutar el pipeline completo
-      # Esto correrá los stages definidos en dvc.yaml
       - name: 6. DVC Reproduce
         run: dvc repro
 
-      # 7. Mostrar las métricas en el log (como pide la consigna)
+      # 7. Mostrar las métricas en el log
       - name: 7. Mostrar Métricas
         run: |
           echo "✅ Pipeline ejecutado. Métricas resultantes:"
-          cat metrics.json # Asumiendo que tu pipeline genera metrics.json
+          cat metrics.json
