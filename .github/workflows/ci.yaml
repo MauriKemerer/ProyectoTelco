@@ -27,11 +27,11 @@ jobs:
           pip install -r requirements.txt
 
       # 4. Configurar las credenciales de DagsHub
-      - name: 4. Configurar DagsHub
-        uses: DagsHub/setup-dagshub@v0
-        with:
-          repo_owner: 'MauriKemerer'
-          repo_name: 'ProyectoTelco'
+      #- name: 4. Configurar DagsHub
+      # uses: DagsHub/setup-dagshub@v0
+      #  with:
+      #   repo_owner: 'MauriKemerer'
+      #    repo_name: 'ProyectoTelco'
 
       # 5. Descargar los datos y modelos versionados
       - name: 5. DVC Pull
