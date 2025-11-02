@@ -15,6 +15,14 @@ jobs:
       - name: 1. Checkout del repositorio
         uses: actions/checkout@v4
 
+            # --- AGREGA ESTE BLOQUE NUEVO ---
+      - name: DEBUG - Mostrar contenido de ci.yaml
+        run: |
+          echo "--- Contenido de ci.yaml ---"
+          cat .github/workflows/ci.yaml
+          echo "----------------------------"
+      # --- FIN DEL BLOQUE NUEVO ---
+
       # 2. Configurar el entorno de Python
       - name: 2. Set up Python
         uses: actions/setup-python@v4
