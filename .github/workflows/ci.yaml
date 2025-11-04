@@ -52,11 +52,16 @@ jobs:
           DAGSHUB_USER: ${{ secrets.DAGSHUB_USER }}
           DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
         run: |
-          # 🚨 ¡PUNTO CLAVE! 🚨
-          # Reemplaza 'origin' si tu remote de DVC tiene otro nombre.
-          # Puedes verlo corriendo localmente: dvc remote list
+          # -------------------------------------------------------------
+          # PASO 1 (NUEVO): Añadimos el remote desde cero.
+          # Esta es la URL que me pasaste de tu repo en DagsHub
+          dvc remote add origin-dvc https://dagshub.com/mauricio.kemerer/ProyectoTelco.dvc
+          
+          # PASO 2 (Como antes): Modificamos el remote para la autenticación
+          # Usamos --local para que los cambios se guarden en .dvc/config.local
           dvc remote modify --local origin-dvc user $DAGSHUB_USER
           dvc remote modify --local origin-dvc password $DAGSHUB_TOKEN
+          # -------------------------------------------------------------
 
       # --------------------------------
       # 5. DVC Pull (Descargar datos y modelos)
