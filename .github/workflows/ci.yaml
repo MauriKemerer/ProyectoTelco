@@ -1,0 +1,81 @@
+# Nombre del Workflow que aparecerá en la pestaña "Actions" de GitHub
+name: CI-DVC-Telco-Churn
+
+# -----------------------------------------------------------------
+# Disparadores (Triggers): Cuándo debe ejecutarse este workflow
+# -----------------------------------------------------------------
+on:
+  push:
+    branches:
+      - main  # Ejecutar cuando se haga push a 'main'
+  pull_request:
+    branches:
+      - main  # Ejecutar cuando se abra un PR contra 'main'
+
+# -----------------------------------------------------------------
+# Trabajos (Jobs): Las tareas que se van a ejecutar
+# -----------------------------------------------------------------
+jobs:
+  run-pipeline:
+    # El tipo de máquina virtual que usaremos
+    runs-on: ubuntu-latest
+
+    steps:
+      # --------------------------------
+      # 1. Checkout (Descargar el código)
+      # --------------------------------
+      - name: Checkout del repositorio
+        uses: actions/checkout@v3
+
+      # --------------------------------
+      # 2. Configurar Python
+      # --------------------------------
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9' # Asegúrate que coincida con tu entorno local
+
+      # --------------------------------
+      # 3. Instalar dependencias
+      # --------------------------------
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt # Asume que tienes un requirements.txt
+
+      # --------------------------------
+      # 4. Configurar credenciales de DVC
+      # --------------------------------
+      - name: Configurar DVC con DagsHub
+        env:
+          # Usamos los secrets que configuraste
+          DAGSHUB_USER: ${{ secrets.DAGSHUB_USER }}
+          DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
+        run: |
+          # 🚨 ¡PUNTO CLAVE! 🚨
+          # Reemplaza 'origin' si tu remote de DVC tiene otro nombre.
+          # Puedes verlo corriendo localmente: dvc remote list
+          dvc remote modify --local origin-dvc user $DAGSHUB_USER
+          dvc remote modify --local origin-dvc password $DAGSHUB_TOKEN
+
+      # --------------------------------
+      # 5. DVC Pull (Descargar datos y modelos)
+      # --------------------------------
+      - name: DVC Pull
+        run: |
+          dvc pull
+
+      # --------------------------------
+      # 6. DVC Repro (Ejecutar el pipeline)
+      # --------------------------------
+      - name: DVC Repro
+        run: |
+          dvc repro
+
+      # --------------------------------
+      # 7. Publicar métricas en el log
+      # --------------------------------
+      - name: Mostrar métricas
+        run: |
+          echo "✅ Pipeline ejecutado. Mostrando métricas:"
+          cat metrics.json # Asume que tu 'dvc.yaml' genera 'metrics.json'
