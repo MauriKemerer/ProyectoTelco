@@ -28,8 +28,12 @@ jobs:
       - name: Configure DVC remote auth
         run: |
           dvc remote modify origin-dvc --local auth basic
-          dvc remote modify origin-dvc --local user ${{ secrets.DAGSHUB_USER }}
-          dvc remote modify origin-dvc --local password ${{ secrets.DAGSHUB_TOKEN }}
+          dvc remote modify origin-dvc --local user $DAGSHUB_USERNAME
+          dvc remote modify origin-dvc --local password $DAGSHUB_TOKEN
+        env:
+          DAGSHUB_USERNAME: ${{ secrets.DAGSHUB_USERNAME }}
+          DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
+
 
       - name: Pull data and models
         run: dvc pull -v
