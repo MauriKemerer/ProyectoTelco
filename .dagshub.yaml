@@ -1,0 +1,4 @@
+storage:
+  - name: origin-dvc
+    uri: https://dagshub.com/mauricio.kemerer/ProyectoTelco.dvc
+    type: dvc
