@@ -2,5 +2,5 @@ train:
   test_size: 0.2
   random_state: 42
   solver: saga
-  max_iter: 1000
-  C: 10.0
+  max_iter: 100
+  C: 1.0
