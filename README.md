@@ -66,7 +66,13 @@ Durante la Etapa 4, se realizaron múltiples experimentos variando los hiperpar�
 
 Modelo Final Elegido:
 
-Se seleccionó el modelo del experimento "sun mink" (Regresión Logística con C=1.0 y solver='liblinear') ya que presentó el mejor balance de métricas.
+Se seleccionó el modelo del experimento "sun mink" (Regresión Logística) ya que presentó el mejor balance de métricas.
+Los hiperparámetros del modelo elegido:
+test_size: 0.2
+random_state: 42
+solver: saga
+max_iter: 1000
+C: 10.0
 
 Las métricas finales de este modelo (obtenidas del archivo metrics.json) son:
 Accuracy: 0.6715
@@ -81,7 +87,18 @@ Integración Continua (CI): Se configuró un workflow de GitHub Actions (.github
 
 Colaboración: El proyecto siguió un flujo de trabajo basado en ramas (Git-Flow). Cada nueva funcionalidad o etapa (ejemplo: etapa-6) se desarrolló en una rama separada y se integró a main mediante un Pull Request (PR), asegurando la validación del CI antes de la fusión.
 
-Muchas gracias!
+
+# Reflexión de Despliegue en Producción
+
+Aunque este proyecto se enfoca en la reproducibilidad del entrenamiento, el siguiente paso lógico sería poner el modelo (model.pkl) en producción.
+
+El enfoque recomendado sería crear una API REST usando FastAPI o Flask.
+
+1.  El servicio cargaría el model.pkl (previamente descargado con dvc pull).
+2.  Expondría un endpoint (ejemplo: /predict) que recibiría los datos de un cliente en formato JSON.
+3.  El endpoint aplicaría el pre-procesamiento necesario (idealmente contenido en un pipeline de Scikit-learn) y devolvería la probabilidad de churn (0 a 1).
+4.  Esta API podría ser consumida por los sistemas internos de TelcoVision para tomar decisiones en tiempo real (ejemplo: ofrecer un descuento a un cliente con alta probabilidad de churn).
+
 
 # Equipo
 
