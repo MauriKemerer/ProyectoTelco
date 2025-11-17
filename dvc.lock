@@ -38,5 +38,5 @@ stages:
       size: 133
     - path: models/model.pkl
       hash: md5
-      md5: 0555cfaf4da797e9601e82b5d72005fb
+      md5: a85f8027de20983097707b11f342f6ee
       size: 1759
