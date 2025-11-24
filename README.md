@@ -12,7 +12,7 @@ El proyecto aplica prácticas de MLOps, incluyendo versionado de datos y modelos
 
 Aquí está la presentación y demostración en vivo del proyecto (10-15 min), cubriendo todo el pipeline, desde el `git clone` hasta la revisión de experimentos y CI/CD.
 
-https://www.youtube.com/watch?v=ewD9TaZppcw
+https://www.youtube.com/watch?v=SE_TOsPJa04
 
 
 # Caso de Uso y Objetivo
